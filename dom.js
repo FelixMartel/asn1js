@@ -61,7 +61,8 @@ ASN1.prototype.toDOM = function () {
         content = String(content); // it might be a number
         if (isOID)
             content = content.split('\n', 1)[0];
-        shortContent = (content.length > lineLength) ? content.substring(0, lineLength) + DOM.ellipsis : content;
+        //shortContent = (content.length > lineLength) ? content.substring(0, lineLength) + DOM.ellipsis : content;
+        shortContent = content
         preview.appendChild(DOM.text(shortContent));
         if (isOID) {
             var oid = oids[content];

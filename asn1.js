@@ -23,8 +23,8 @@ var Int10 = (typeof module !== 'undefined') ? require('./int10.js') : window.Int
     reTimeL = /^(\d\d\d\d)(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])([01]\d|2[0-3])(?:([0-5]\d)(?:([0-5]\d)(?:[.,](\d{1,3}))?)?)?(Z|[-+](?:[0]\d|1[0-2])([0-5]\d)?)?$/;
 
 function stringCut(str, len) {
-    if (str.length > len)
-        str = str.substring(0, len) + ellipsis;
+    //if (str.length > len)
+    //    str = str.substring(0, len) + ellipsis;
     return str;
 }
 
@@ -41,8 +41,8 @@ function Stream(enc, pos) {
 Stream.prototype.get = function (pos) {
     if (pos === undefined)
         pos = this.pos++;
-    if (pos >= this.enc.length)
-        throw 'Requesting byte offset ' + pos + ' on a stream of length ' + this.enc.length;
+    //if (pos >= this.enc.length)
+    //    throw 'Requesting byte offset ' + pos + ' on a stream of length ' + this.enc.length;
     return (typeof this.enc == "string") ? this.enc.charCodeAt(pos) : this.enc[pos];
 };
 Stream.prototype.hexDigits = "0123456789ABCDEF";
@@ -167,23 +167,23 @@ Stream.prototype.parseBitString = function (start, end, maxLength) {
             skip = (i == end - 1) ? unusedBit : 0;
         for (var j = 7; j >= skip; --j)
             s += (b >> j) & 1 ? "1" : "0";
-        if (s.length > maxLength)
-            return intro + stringCut(s, maxLength);
+        //if (s.length > maxLength)
+        //    return intro + stringCut(s, maxLength);
     }
     return intro + s;
 };
 Stream.prototype.parseOctetString = function (start, end, maxLength) {
-    if (this.isASCII(start, end))
-        return stringCut(this.parseStringISO(start, end), maxLength);
+    //if (this.isASCII(start, end))
+    //    return stringCut(this.parseStringISO(start, end), maxLength);
     var len = end - start,
         s = "(" + len + " byte)\n";
     maxLength /= 2; // we work in bytes
-    if (len > maxLength)
-        end = start + maxLength;
+    //if (len > maxLength)
+    //    end = start + maxLength;
     for (var i = start; i < end; ++i)
         s += this.hexByte(this.get(i));
-    if (len > maxLength)
-        s += ellipsis;
+    //if (len > maxLength)
+    //    s += ellipsis;
     return s;
 };
 Stream.prototype.parseOID = function (start, end, maxLength) {
@@ -206,8 +206,8 @@ Stream.prototype.parseOID = function (start, end, maxLength) {
                 }
             } else
                 s += "." + n.toString();
-            if (s.length > maxLength)
-                return stringCut(s, maxLength);
+            //if (s.length > maxLength)
+            //    return stringCut(s, maxLength);
             n = new Int10();
             bits = 0;
         }
